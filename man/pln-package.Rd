@@ -18,8 +18,8 @@ Some code from the ltm package (version 0.9-7) was modified for counting the fre
 \tabular{ll}{
 Package: \tab pln\cr
 Type: \tab Package\cr
-Version: \tab 0.2\cr
-Date: \tab 2012-07-09\cr
+Version: \tab 0.2-1\cr
+Date: \tab 2013-01-24\cr
 License: \tab GPL-3\cr
 LazyLoad: \tab yes\cr
 }

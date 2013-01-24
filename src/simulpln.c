@@ -210,9 +210,22 @@ void Rsimulpln( int *nitems0, int *ncateg0, int *nsampsize0, double *alpvec, dou
   }
 
   /* C stores by rows, R stores by columns */
-  for(i=0;i<nrec;i++)
-  { for(j=0;j<=nitems;j++) Rdat[i+j*nrec]=datfr[i][j]; }
+  /*for(i=0;i<nrec;i++)
+  { for(j=0;j<=nitems;j++) Rdat[i+j*nrec]=datfr[i][j]; }*/
 
+  /* above changed to below, CF, 2013-01-24*/
+  /* this makes trimming 0's from Rdat easier in R
+   by instead importing the data into a matrix by rows*/
+  ii=0;
+  for(i=0;i<nrec;i++)
+  { for(j=0;j<=nitems;j++)
+    {
+      Rdat[ii]=datfr[i][j];
+      ii++;
+    }
+  }
+    
+    
   Free(w); Free(x); Free(cdfw);
   Free(alp[0]); Free(alp); Free(b);
   Free(dat[0]); Free(dat); Free(fr);

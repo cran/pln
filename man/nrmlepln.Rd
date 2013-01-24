@@ -113,22 +113,6 @@ Harry Joe
 }
 \examples{
 
-### Raw data
-data(item9cat5)
-
-## ML estimation
-nrmleplnout<-nrmlepln(item9cat5, ncat=5)
-print(nrmleplnout)
-
-## BCL estimation
-nrbcplnout<-nrbcpln(item9cat5, ncat=5)
-print(nrbcplnout)
-
-## ML Rasch estimation
-nrmleraschout<-nrmlerasch(item9cat5, ncat=5)
-print(nrmleraschout)
-
-
 ### Matrix of response patterns and frequencies
 data(item5fr)
 
@@ -143,6 +127,23 @@ print(nrbcplnout)
 ## ML Rasch estimation
 nrmleraschout<-nrmlerasch(item5fr, ncat=3, nitem=5)
 print(nrmleraschout)
+
+\dontrun{
+### Raw data
+data(item9cat5)
+
+## ML estimation
+nrmleplnout<-nrmlepln(item9cat5, ncat=5)
+print(nrmleplnout)
+
+## BCL estimation
+nrbcplnout<-nrbcpln(item9cat5, ncat=5, se=FALSE)
+print(nrbcplnout)
+
+## ML Rasch estimation
+nrmleraschout<-nrmlerasch(item9cat5, ncat=5)
+print(nrmleraschout)
+}
 
 }
 \seealso{

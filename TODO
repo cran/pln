@@ -2,7 +2,6 @@
 -Standardize debugging code for command line
 -Clean up ifdef statements
 -Clean up misc debugging code
--Add simulpln function
 -BCL Rasch model
 -Output starting values used in estimation
 -Output number of iterations and convergence for all functions

@@ -68,7 +68,7 @@ print(myAlphas)
 myBetas<-startbetas(item9cat5, ncat=5)
 print(myBetas)
 
-nrbcplnout<-nrbcpln(item9cat5, ncat=5, alphas=myAlphas, betas=myBetas)
+nrbcplnout<-nrbcpln(item9cat5, ncat=5, alphas=myAlphas, betas=myBetas, se=FALSE)
 print(nrbcplnout)
 
 
@@ -81,7 +81,7 @@ print(myAlphas)
 myBetas<-startbetas(item5fr, ncat=3, nitem=5)
 print(myBetas)
 
-nrbcplnout<-nrbcpln(item5fr, ncat=3, nitem=5, alphas=myAlphas, betas=myBetas)
+nrbcplnout<-nrbcpln(item5fr, ncat=3, nitem=5, alphas=myAlphas, betas=myBetas, se=FALSE)
 print(nrbcplnout)
 
 }
