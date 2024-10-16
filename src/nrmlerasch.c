@@ -142,7 +142,7 @@ void raschnllk(int np, double *param, double *nllk, double **dd, int iprint,
 #ifndef R
   bvec=(double *) malloc((n+1) * sizeof(double));
 #else
-  bvec=(double *) Calloc((n+1), double);
+  bvec=(double *) calloc((n+1), sizeof(double));
 #endif
   npful=m*n;
   ip=0;
@@ -177,8 +177,8 @@ void raschnllk(int np, double *param, double *nllk, double **dd, int iprint,
   kk=(int *) malloc((n+1) * sizeof(int));
   der=(double *) malloc((npful+1) * sizeof(double));
 #else
-  kk=(int *) Calloc((n+1), int);
-  der=(double *) Calloc((npful+1), double);
+  kk=(int *) calloc((n+1), sizeof(int));
+  der=(double *) calloc((npful+1), sizeof(double));
 #endif
   hes=dmatrix(npful+1,npful+1);
 
@@ -229,9 +229,9 @@ void raschnllk(int np, double *param, double *nllk, double **dd, int iprint,
   free(der); free(hes[0]); free(hes);
   free(kk);
 #else
-  Free(alp[0]); Free(alp); Free(bvec);
-  Free(der); Free(hes[0]); Free(hes);
-  Free(kk);
+  free(alp[0]); free(alp); free(bvec);
+  free(der); free(hes[0]); free(hes);
+  free(kk);
 #endif
 }
 
@@ -262,8 +262,8 @@ void Rnrmlerasch( int *nitem, int *ncateg, int *nrec, double *dataset, double *a
   double **dat,*fr;
   double ***g,***g1,***g2;
 
-  x=(double *) Calloc((*nq+1), double);
-  w=(double *) Calloc((*nq+1), double);
+  x=(double *) calloc((*nq+1), sizeof(double));
+  w=(double *) calloc((*nq+1), sizeof(double));
   gauher(x,w,*nq);
   for (j=1;j<=*nq;j++) x[j]*=M_SQRT2;
   for (j=1;j<=*nq;j++) w[j]/=SQRTPI; 
@@ -271,7 +271,7 @@ void Rnrmlerasch( int *nitem, int *ncateg, int *nrec, double *dataset, double *a
   
   /* convert to matrices in C (i.e. row/column transpose) */
   dat=dmatrix(*nrec,*nitem);
-  fr=(double *) Calloc((*nrec), double);
+  fr=(double *) calloc((*nrec), sizeof(double));
   /* nn = total of fr[] */
   for(i=0,nn=0;i<(*nrec);i++)
   { for(j=0;j<(*nitem);j++) dat[i][j] = *(dataset + (j*(*nrec)+i)); 
@@ -286,8 +286,8 @@ void Rnrmlerasch( int *nitem, int *ncateg, int *nrec, double *dataset, double *a
   }
   np=(*ncateg)*(*nitem)-(*nitem)+1;  /* common beta */
 
-  lb=(double *) Calloc(np, double);
-  ub=(double *) Calloc(np, double);
+  lb=(double *) calloc(np, sizeof(double));
+  ub=(double *) calloc(np, sizeof(double));
   for(ip=0;ip<np;ip++) { lb[ip]=*(abound+0); ub[ip]=*(abound+1); } 
   /* add boundary to common slope ? */
   lb[np-1]=*(bbound+0);
@@ -297,7 +297,7 @@ void Rnrmlerasch( int *nitem, int *ncateg, int *nrec, double *dataset, double *a
   /* alp[i][1],...,alp[i][m-1] should be in decreasing order */
   ip=0;
   alp=dmatrix((*nitem)+1,(*ncateg));
-  param=(double *) Calloc(np, double);
+  param=(double *) calloc(np, sizeof(double));
   for(i=0;i<(*nitem);i++)
   { for(j=0;j<((*ncateg)-1);j++)  
     { alp[i+1][j+1]=*(alphas + (((*ncateg)-1)*i+j)); param[ip]=alp[i+1][j+1]; ip++;
@@ -349,17 +349,17 @@ void Rnrmlerasch( int *nitem, int *ncateg, int *nrec, double *dataset, double *a
   { for(jp=0;jp<np;jp++) *(invhesout + (jp+ip*np))=invhes[ip][jp];}
 
 
-  Free(invhes[0]); Free(invhes);
-  Free(w); Free(x);
-  Free(dat[0]); Free(dat); Free(fr);
-  Free(param); Free(lb); Free(ub);
-  Free(alp[0]);
-  Free(alp);
-  Free(g[0][0]);
-  Free(g1[0][0]);
-  Free(g2[0][0]);
-  Free(g[0]); Free(g);
-  Free(g1[0]); Free(g1);
-  Free(g2[0]); Free(g2);
+  free(invhes[0]); free(invhes);
+  free(w); free(x);
+  free(dat[0]); free(dat); free(fr);
+  free(param); free(lb); free(ub);
+  free(alp[0]);
+  free(alp);
+  free(g[0][0]);
+  free(g1[0][0]);
+  free(g2[0][0]);
+  free(g[0]); free(g);
+  free(g1[0]); free(g1);
+  free(g2[0]); free(g2);
 }
 #endif

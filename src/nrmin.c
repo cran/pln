@@ -109,7 +109,7 @@ void nrmin(int np, double *val,
 #ifndef R
   free(dd[0]); free(dd);
 #else
-  Free(dd[0]); Free(dd);
+  free(dd[0]); free(dd);
 #endif
   *fnval=out;
 
@@ -135,7 +135,7 @@ void nrmin(int np, double *val,
 #ifndef R
   free(dd[0]); free(dd);
 #else
-  Free(dd[0]); Free(dd);
+  free(dd[0]); free(dd);
 #endif
 }
 
@@ -201,8 +201,8 @@ double **dmatrix(int nrow, int ncol)
   avec=(double *)malloc((unsigned) (nrow*ncol)*sizeof(double));
   amat=(double **)malloc((unsigned) nrow*sizeof(double*));
 #else
-  avec=(double *)Calloc((unsigned) (nrow*ncol), double);
-  amat=(double **)Calloc((unsigned) nrow, double*);    
+  avec=(double *)calloc((unsigned) (nrow*ncol), sizeof(double));
+  amat=(double **)calloc((unsigned) nrow, sizeof(double*));    
 #endif
   for(i=0;i<nrow;i++) amat[i]=avec+i*ncol;
   return amat;

@@ -139,13 +139,13 @@ double m2rasch(int n, int m, int ng, double *pp, double **alp, double b0, int nn
   e=(double *) malloc((nm+1) * sizeof(double));
   rvec=(int *) malloc((nm+1) * sizeof(int));
 #else
-  ii=(int *) Calloc((n+1), int);
-  kk=(int *) Calloc((n+1), int);
-  b=(double *) Calloc((n+1), double);
+  ii=(int *) calloc((n+1), sizeof(int));
+  kk=(int *) calloc((n+1), sizeof(int));
+  b=(double *) calloc((n+1), sizeof(double));
   del=dmatrix(nm+1,np+1);
-  pr=(double *) Calloc((nm+1), double);
-  e=(double *) Calloc((nm+1), double);
-  rvec=(int *) Calloc((nm+1), int);
+  pr=(double *) calloc((nm+1), sizeof(double));
+  e=(double *) calloc((nm+1), sizeof(double));
+  rvec=(int *) calloc((nm+1), sizeof(int));
 #endif
   iimat=imatrix(nm+1,2);
   kkmat=imatrix(nm+1,2);
@@ -199,10 +199,10 @@ double m2rasch(int n, int m, int ng, double *pp, double **alp, double b0, int nn
   ss=(int *) malloc((n+1) * sizeof(int));
   tt=(int *) malloc((n+1) * sizeof(int));
 #else
-  cc=(int *) Calloc((n+1), int);
-  dd=(int *) Calloc((n+1), int);
-  ss=(int *) Calloc((n+1), int);
-  tt=(int *) Calloc((n+1), int);
+  cc=(int *) calloc((n+1), sizeof(int));
+  dd=(int *) calloc((n+1), sizeof(int));
+  ss=(int *) calloc((n+1), sizeof(int));
+  tt=(int *) calloc((n+1), sizeof(int));
 #endif
   /* M2: get the covariance matrix */
   for(g1=1;g1<=ng;g1++)
@@ -250,15 +250,15 @@ double m2rasch(int n, int m, int ng, double *pp, double **alp, double b0, int nn
   free(iimat[0]); free(iimat);
   free(kkmat[0]); free(kkmat);
 #else
-  Free(ii); Free(kk); Free(cc); Free(dd); Free(ss); Free(tt);
-  Free(b);
-  Free(del[0]); Free(del);
-  Free(xi[0]); Free(xi);
-  Free(cmat[0]); Free(cmat);
-  Free(pr); Free(e);
-  Free(rvec);
-  Free(iimat[0]); Free(iimat);
-  Free(kkmat[0]); Free(kkmat);    
+  free(ii); free(kk); free(cc); free(dd); free(ss); free(tt);
+  free(b);
+  free(del[0]); free(del);
+  free(xi[0]); free(xi);
+  free(cmat[0]); free(cmat);
+  free(pr); free(e);
+  free(rvec);
+  free(iimat[0]); free(iimat);
+  free(kkmat[0]); free(kkmat);    
 #endif
   return m2;
 }
@@ -337,7 +337,7 @@ void raschdergh(int n, int m, double **alp, double b0, int r,
 #ifndef R
   fn=(double *) malloc((np+1) * sizeof(double));
 #else
-  fn=(double *) Calloc((np+1), double);
+  fn=(double *) calloc((np+1), sizeof(double));
 #endif
 
   /* loop for probabilities and partial derivatives */
@@ -352,7 +352,7 @@ void raschdergh(int n, int m, double **alp, double b0, int r,
 #ifndef R
   free(fn);
 #else
-  Free(fn);
+  free(fn);
 #endif
 }
 
@@ -416,7 +416,7 @@ void summ2fr(int n, int m, int nn, int nrec, double **dat, double *fr,
 #ifndef R
   s=(int *) malloc((m+1) * sizeof(int));
 #else
-  s=(int *) Calloc((m+1), int);
+  s=(int *) calloc((m+1), sizeof(int));
 #endif
     
   s2=imatrix(m+1,m+1);
@@ -449,7 +449,7 @@ void summ2fr(int n, int m, int nn, int nrec, double **dat, double *fr,
 #ifndef R
   free(s); free(s2[0]); free(s2);
 #else
-  Free(s); Free(s2[0]); Free(s2);
+  free(s); free(s2[0]); free(s2);
 #endif
 }
 #endif
@@ -506,7 +506,7 @@ void Rm2rasch(int *nitem, int *ncateg, int *nrec, double *dataset, double *alpha
    int nn; 
 
    dat=dmatrix(*nrec,*nitem); 
-   fr=(double *) Calloc((*nrec), double);  
+   fr=(double *) calloc((*nrec), sizeof(double));  
 
    for(i=0,nn=0;i<(*nrec);i++)  
    { for(j=0;j<(*nitem);j++) dat[i][j] = *(dataset + (j*(*nrec)+i));   
@@ -520,7 +520,7 @@ void Rm2rasch(int *nitem, int *ncateg, int *nrec, double *dataset, double *alpha
   printf("sample size=%d\n", nn);*/
 
    nm=(*nitem)*((*ncateg)-1) + ((*nitem)*((*nitem)-1)*((*ncateg)-1)*((*ncateg)-1))/2;  
-   pp=(double *) Calloc((nm+1), double);  
+   pp=(double *) calloc((nm+1), sizeof(double));  
    summ2fr(*nitem,*ncateg,nn,*nrec,dat,fr,pp,&ng);   
    /* print out column vector of sample moments */
   /*
@@ -529,8 +529,8 @@ void Rm2rasch(int *nitem, int *ncateg, int *nrec, double *dataset, double *alpha
   { printf("%.3f ", pp[g]); if(g%10==0) printf("\n"); }
   printf("\n");  */
 
-   x=(double *) Calloc((*nq+1), double);  
-   w=(double *) Calloc((*nq+1), double);  
+   x=(double *) calloc((*nq+1), sizeof(double));  
+   w=(double *) calloc((*nq+1), sizeof(double));  
    gauher(x,w,*nq);  
    for (j=1;j<=*nq;j++) x[j]*=M_SQRT2;  
    for (j=1;j<=*nq;j++) w[j]/=SQRTPI;  
@@ -548,7 +548,7 @@ void Rm2rasch(int *nitem, int *ncateg, int *nrec, double *dataset, double *alpha
 
    /* not sure if this is necessary as b is never used 
 	see below comment - CF 20100717 */
-   b=(double *) Calloc((*nitem+1), double);  
+   b=(double *) calloc((*nitem+1), sizeof(double));  
    for(i=0;i<(*nitem);i++)   
    { b[i+1]=*bvec;  
      /*printf("beta(%d)=%f\n",i,b[i]);*/
@@ -559,7 +559,7 @@ void Rm2rasch(int *nitem, int *ncateg, int *nrec, double *dataset, double *alpha
   printf("\n");
   for(i=1;i<=n;i++) printf("%f ", b[i]); printf("\n");*/
 
-   c2=(int *) Calloc((*nitem+2), int);  
+   c2=(int *) calloc((*nitem+2), sizeof(int));  
    for(i=2,c2[1]=0;i<=(*nitem)+1;i++) c2[i]=(i*(i-1))/2;  
   /* make call to m2rasch */
    m2=m2rasch(*nitem,*ncateg,ng,pp,alp,*bvec,nn,x,w,*nq,c2); 
@@ -581,11 +581,11 @@ void Rm2rasch(int *nitem, int *ncateg, int *nrec, double *dataset, double *alpha
 
    *dfraschout = ng-np; 
 
-   Free(w); Free(x); 
-   Free(pp);  
-   Free(alp[0]); Free(alp); Free(b);  
-   Free(dat[0]); Free(dat); Free(fr);  
-   Free(c2);   
+   free(w); free(x); 
+   free(pp);  
+   free(alp[0]); free(alp); free(b);  
+   free(dat[0]); free(dat); free(fr);  
+   free(c2);   
 }
 
 #endif
